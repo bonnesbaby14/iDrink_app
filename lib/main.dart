@@ -24,28 +24,28 @@ class MyApp extends StatelessWidget {
                 onPressed: () {
                   //Do function
                 },
-                child: Text('Botón 1'),
+                child: Text('Bebida 1'),
               ),
               SizedBox(height: 16), // Espacio entre los botones
               ElevatedButton(
                 onPressed: () {
                   print('¡Hola!');
                 },
-                child: Text('Botón 2'),
+                child: Text('Bebida 2'),
               ),
                SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   //Do function
                 },
-                child: Text('Botón 3'),
+                child: Text('Bebida 3'),
               ),
                SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   //Do function
                 },
-                child: Text('Botón 4'),
+                child: Text('Bebida 4'),
               ),
             ],
           ),
