@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
 void main() {
   runApp(MaterialApp(
     title: 'iDrink',
@@ -24,11 +23,14 @@ class MyApp extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () async {
-                final response = await http
-                    .get(Uri.parse('https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/greyhound'));
+                final response = await http.get(Uri.parse(
+                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/greyhound'));
                 if (response.statusCode == 200) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Sirviendo...')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Sirviendo...')));
+                }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('El servicio no esta disponible...')));
                 }
               },
               child: const Text('Greyhound'),
@@ -36,11 +38,14 @@ class MyApp extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                final response = await http
-                    .get(Uri.parse('https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/tequila_sunrise'));
+                final response = await http.get(Uri.parse(
+                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/tequila_sunrise'));
                 if (response.statusCode == 200) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Sirviendo...')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Sirviendo...')));
+                }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('El servicio no esta disponible...')));
                 }
               },
               child: const Text('Tequila Sunrise'),
@@ -48,11 +53,14 @@ class MyApp extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                final response = await http
-                    .get(Uri.parse('https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/desarmador'));
+                final response = await http.get(Uri.parse(
+                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/desarmador'));
                 if (response.statusCode == 200) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Sirviendo...')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Sirviendo...')));
+                }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('El servicio no esta disponible...')));
                 }
               },
               child: const Text('Desarmador'),
@@ -60,11 +68,14 @@ class MyApp extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                final response = await http
-                    .get(Uri.parse('https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/cosmopolitan'));
+                final response = await http.get(Uri.parse(
+                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/cosmopolitan'));
                 if (response.statusCode == 200) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Sirviendo...')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Sirviendo...')));
+                }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('El servicio no esta disponible...')));
                 }
               },
               child: const Text('Cosmopolitan'),
