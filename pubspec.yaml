@@ -57,6 +57,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+   - assets/images/one.jpg
+   - assets/images/two.jpg
+   - assets/images/three.jpg
+   - assets/images/four.jpg
+   - assets/images/five.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
