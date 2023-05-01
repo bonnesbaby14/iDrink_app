@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'dart:convert';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -110,8 +110,20 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: () async {
                               // Agrega aquí la acción que deseas realizar
-                              final response = await http.get(Uri.parse(
-                                  'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/greyhound'));
+                              final response = await http.post(
+                                Uri.parse(
+                                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve'),
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: jsonEncode({
+                                  'drink': 'greyhound',
+                                  'user': 'tu_usuario'
+                                }),
+                              );
+
+                              print(response.statusCode);
+                              print(response.body);
                               if (response.statusCode == 200) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -127,8 +139,19 @@ class _HomePageState extends State<HomePage> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              final response = await http.get(Uri.parse(
-                                  'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/tequila_sunrise'));
+                              final response = await http.post(
+                                Uri.parse(
+                                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve'),
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: jsonEncode({
+                                  'drink': 'tequila_sunrise',
+                                  'user': 'tu_usuario'
+                                }),
+                              );
+
+                              
                               if (response.statusCode == 200) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -145,8 +168,19 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: () async {
                               // Agrega aquí la acción que deseas realizar
-                              final response = await http.get(Uri.parse(
-                                  'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/desarmador'));
+                              final response = await http.post(
+                                Uri.parse(
+                                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve'),
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: jsonEncode({
+                                  'drink': 'desarmador',
+                                  'user': 'tu_usuario'
+                                }),
+                              );
+
+                             
                               if (response.statusCode == 200) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -163,8 +197,19 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                             onTap: () async {
                               // Agrega aquí la acción que deseas realizar
-                              final response = await http.get(Uri.parse(
-                                  'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve/cosmopolitan'));
+                              final response = await http.post(
+                                Uri.parse(
+                                    'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/serve'),
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: jsonEncode({
+                                  'drink': 'cosmopolitan',
+                                  'user': 'tu_usuario'
+                                }),
+                              );
+
+                              
                               if (response.statusCode == 200) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
