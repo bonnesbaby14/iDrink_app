@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:idrink_app/entry_point.dart';
 import 'package:rive/rive.dart';
 
 
@@ -65,7 +66,7 @@ class _SignInFormState extends State<SignInForm> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Text("ss"),
+                    builder: (context) => const EntryPoint(),
                   ),
                 );
               });

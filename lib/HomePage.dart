@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Roboto'),
-      home: HomePage(key: Key('myHomePage')),
-    ));
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -68,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(244, 243, 243, 1),
                           borderRadius: BorderRadius.circular(15)),
-                      child: TextField(
+                      child: const TextField(
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Icon(
@@ -80,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                                 TextStyle(color: Colors.grey, fontSize: 15)),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ],
