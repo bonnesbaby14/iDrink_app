@@ -1,93 +1,61 @@
 import 'rive_model.dart';
+import 'package:flutter/cupertino.dart';
 
 class Menu {
   final String title;
-  final RiveModel rive;
+  final IconData icon;
 
-  Menu({required this.title, required this.rive});
+  Menu({required this.title, required this.icon});
 }
 
 List<Menu> sidebarMenus = [
   Menu(
     title: "Home",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "HOME",
-        stateMachineName: "HOME_interactivity"),
+    icon: CupertinoIcons.home,
   ),
   Menu(
-    title: "Search",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "SEARCH",
-        stateMachineName: "SEARCH_Interactivity"),
-  ),
-  Menu(
-    title: "Favorites",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "LIKE/STAR",
-        stateMachineName: "STAR_Interactivity"),
-  ),
-  Menu(
-    title: "Help",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "CHAT",
-        stateMachineName: "CHAT_Interactivity"),
+    title: "Status",
+    icon: CupertinoIcons.antenna_radiowaves_left_right,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
 ];
 List<Menu> sidebarMenus2 = [
   Menu(
-    title: "History",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "TIMER",
-        stateMachineName: "TIMER_Interactivity"),
+    title: "Graphics",
+    icon: CupertinoIcons.graph_square,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
   Menu(
-    title: "Notifications",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "BELL",
-        stateMachineName: "BELL_Interactivity"),
+    title: "Exportable",
+    icon: CupertinoIcons.doc_chart_fill,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
 ];
 
 List<Menu> bottomNavItems = [
   Menu(
     title: "Chat",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "CHAT",
-        stateMachineName: "CHAT_Interactivity"),
+    icon: CupertinoIcons.chart_bar,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
   Menu(
     title: "Search",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "SEARCH",
-        stateMachineName: "SEARCH_Interactivity"),
+    icon: CupertinoIcons.search,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
   Menu(
     title: "Timer",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "TIMER",
-        stateMachineName: "TIMER_Interactivity"),
+    icon: CupertinoIcons.time,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
   Menu(
     title: "Notification",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "BELL",
-        stateMachineName: "BELL_Interactivity"),
+    icon: CupertinoIcons.app_badge,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
   Menu(
     title: "Profile",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "USER",
-        stateMachineName: "USER_Interactivity"),
+    icon: CupertinoIcons.profile_circled,
+    // Opcional: Personaliza el tamaño, color y otros atributos del icono
   ),
 ];

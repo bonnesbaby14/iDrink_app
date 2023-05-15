@@ -5,8 +5,6 @@ import 'package:idrink_app/utils/rive_utils.dart';
 import 'info_card.dart';
 import 'menu.dart';
 
-
-
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
 
@@ -52,15 +50,12 @@ class _SideBarState extends State<SideBar> {
                         menu: menu,
                         selectedMenu: selectedSideMenu,
                         press: () {
-                          RiveUtils.chnageSMIBoolState(menu.rive.status!);
+                         
                           setState(() {
                             selectedSideMenu = menu;
                           });
                         },
-                        riveOnInit: (artboard) {
-                          menu.rive.status = RiveUtils.getRiveInput(artboard,
-                              stateMachineName: menu.rive.stateMachineName);
-                        },
+                        
                       ))
                   .toList(),
               Padding(
@@ -75,18 +70,16 @@ class _SideBarState extends State<SideBar> {
               ),
               ...sidebarMenus2
                   .map((menu) => SideMenu(
+                        
                         menu: menu,
                         selectedMenu: selectedSideMenu,
                         press: () {
-                          RiveUtils.chnageSMIBoolState(menu.rive.status!);
+                       
                           setState(() {
                             selectedSideMenu = menu;
                           });
                         },
-                        riveOnInit: (artboard) {
-                          menu.rive.status = RiveUtils.getRiveInput(artboard,
-                              stateMachineName: menu.rive.stateMachineName);
-                        },
+                        
                       ))
                   .toList(),
             ],

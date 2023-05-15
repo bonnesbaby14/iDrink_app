@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
-
 
 import 'animated_bar.dart';
 import 'menu.dart';
@@ -30,13 +30,11 @@ class BtmNavItem extends StatelessWidget {
             height: 36,
             width: 36,
             child: Opacity(
-              opacity: selectedNav == navBar ? 1 : 0.5,
-              child: RiveAnimation.asset(
-                navBar.rive.src,
-                artboard: navBar.rive.artboard,
-                onInit: riveOnInit,
-              ),
-            ),
+                opacity: selectedNav == navBar ? 1 : 0.5,
+                child: const Icon(
+                  CupertinoIcons.line_horizontal_3,
+                  // Opcional: Personaliza el tamaño, color y otros atributos del icono
+                )),
           ),
         ],
       ),

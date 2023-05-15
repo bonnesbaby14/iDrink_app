@@ -13,18 +13,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(244, 243, 243, 1),
+      backgroundColor: const Color.fromRGBO(244, 243, 243, 1),
       appBar: AppBar(
         backgroundColor: Colors.white,
        
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.black87,
-          ),
-          onPressed: () {},
-        ),
+       
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -33,12 +27,12 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.vertical(bottom: Radius.circular(30))),
-                padding: EdgeInsets.all(20.0),
-                child: Column(
+                padding: const EdgeInsets.all(20.0),
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
@@ -58,30 +52,14 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(244, 243, 243, 1),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.black87,
-                            ),
-                            hintText: "Search you're looking for",
-                            hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 15)),
-                      ),
-                    ),
-                    const SizedBox(
+                  
+                    SizedBox(
                       height: 10,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -89,15 +67,15 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Promo Today',
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Container(
+                    SizedBox(
                       height: 200,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
@@ -181,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                                     const SnackBar(
                                         content: Text('Sirviendo...')));
                               } else {
+                                // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text(
@@ -206,10 +185,12 @@ class _HomePageState extends State<HomePage> {
 
                               
                               if (response.statusCode == 200) {
+                                // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text('Sirviendo...')));
                               } else {
+                                // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text(
@@ -221,14 +202,14 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       height: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                             fit: BoxFit.cover,
                             image: AssetImage('assets/images/five.jpg')),
                       ),
@@ -237,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(20),
                           gradient: LinearGradient(
                               begin: Alignment.bottomRight,
-                              stops: [
+                              stops: const [
                                 0.3,
                                 0.9
                               ],
@@ -246,10 +227,10 @@ class _HomePageState extends State<HomePage> {
                                 Colors.black.withOpacity(.2)
                               ]),
                         ),
-                        child: Align(
+                        child: const Align(
                           alignment: Alignment.bottomLeft,
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: EdgeInsets.all(15.0),
                             child: Text(
                               'Best Flavour',
                               style:
@@ -273,7 +254,7 @@ class _HomePageState extends State<HomePage> {
     return AspectRatio(
       aspectRatio: 2.62 / 3,
       child: Container(
-        margin: EdgeInsets.only(right: 15.0),
+        margin: const EdgeInsets.only(right: 15.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
@@ -281,7 +262,7 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(begin: Alignment.bottomRight, stops: [
+              gradient: LinearGradient(begin: Alignment.bottomRight, stops: const [
                 0.1,
                 0.9
               ], colors: [
