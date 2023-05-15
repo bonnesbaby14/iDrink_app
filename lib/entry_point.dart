@@ -5,10 +5,10 @@ import 'package:idrink_app/side_bar.dart';
 import 'package:rive/rive.dart';
 
 import 'HomePage.dart';
+import 'HomePage2.dart';
 import 'constants.dart';
 import 'menu.dart';
 import 'menu_btn.dart';
-
 
 class EntryPoint extends StatefulWidget {
   const EntryPoint({super.key});
@@ -16,6 +16,7 @@ class EntryPoint extends StatefulWidget {
   @override
   State<EntryPoint> createState() => _EntryPointState();
 }
+
 
 class _EntryPointState extends State<EntryPoint>
     with SingleTickerProviderStateMixin {
@@ -32,6 +33,22 @@ class _EntryPointState extends State<EntryPoint>
         selectedBottonNav = menu;
       });
     }
+  }
+   void updateSelectedSideMenu(Menu menu) {
+    
+     isMenuOpenInput.value = !isMenuOpenInput.value;
+
+                if (_animationController.value == 0) {
+                  _animationController.forward();
+                } else {
+                  _animationController.reverse();
+                }
+
+              
+    setState(() {
+      selectedSideMenu = menu;
+       isSideBarOpen = !isSideBarOpen;
+    });
   }
 
   late AnimationController _animationController;
@@ -75,7 +92,8 @@ class _EntryPointState extends State<EntryPoint>
             curve: Curves.fastOutSlowIn,
             left: isSideBarOpen ? 0 : -288,
             top: 0,
-            child:  SideBar(),
+            child:  SideBar(selectedMenu: selectedSideMenu,
+              updateSelectedSideMenu: updateSelectedSideMenu),
           ),
           Transform(
             alignment: Alignment.center,
@@ -87,11 +105,11 @@ class _EntryPointState extends State<EntryPoint>
               offset: Offset(animation.value * 265, 0),
               child: Transform.scale(
                 scale: scalAnimation.value,
-                child: const ClipRRect(
-                  borderRadius: BorderRadius.all(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(24),
                   ),
-                  child: HomePage(),
+                  child: _buildHomePage(),
                 ),
               ),
             ),
@@ -131,7 +149,21 @@ class _EntryPointState extends State<EntryPoint>
           ),
         ],
       ),
-     
     );
+  }
+ 
+
+  Widget _buildHomePage() {
+    switch (selectedSideMenu.title) {
+      case "Home":
+        return HomePage();
+      case "Status":
+        return HomePage2();
+      case "Graphics":
+        return HomePage();
+      // Agrega más casos según tus necesidades
+      default:
+        return HomePage2(); // Página de respaldo en caso de no encontrar una coincidencia
+    }
   }
 }

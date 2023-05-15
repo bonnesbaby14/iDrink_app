@@ -39,13 +39,8 @@ class SideMenu extends StatelessWidget {
             ),
             ListTile(
               onTap: press,
-              leading: SizedBox(
-                  height: 36,
-                  width: 36,
-                  child: Icon(
-                    menu.icon,
-                    color: Color.fromARGB(255, 240, 240, 241),
-                  )),
+              leading:
+                   SizedBox(height: 36, width: 36, child: Icon(menu.icon,color: Color.fromARGB(255, 240, 240, 241),)),
               title: Text(
                 menu.title,
                 style: const TextStyle(color: Colors.white),

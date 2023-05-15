@@ -6,7 +6,14 @@ import 'info_card.dart';
 import 'menu.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+  const SideBar({
+    Key? key,
+    required this.selectedMenu,
+    required this.updateSelectedSideMenu,
+  }) : super(key: key);
+
+  final Menu selectedMenu;
+  final void Function(Menu) updateSelectedSideMenu;
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -14,6 +21,11 @@ class SideBar extends StatefulWidget {
 
 class _SideBarState extends State<SideBar> {
   Menu selectedSideMenu = sidebarMenus.first;
+
+  void updateSelectedMenu(Menu menu) {
+    widget.updateSelectedSideMenu(menu);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,14 +60,11 @@ class _SideBarState extends State<SideBar> {
               ...sidebarMenus
                   .map((menu) => SideMenu(
                         menu: menu,
-                        selectedMenu: selectedSideMenu,
+                        selectedMenu: widget
+                            .selectedMenu, // Utiliza widget.selectedMenu en lugar de selectedSideMenu
                         press: () {
-                         
-                          setState(() {
-                            selectedSideMenu = menu;
-                          });
+                          updateSelectedMenu(menu);
                         },
-                        
                       ))
                   .toList(),
               Padding(
@@ -70,16 +79,12 @@ class _SideBarState extends State<SideBar> {
               ),
               ...sidebarMenus2
                   .map((menu) => SideMenu(
-                        
                         menu: menu,
-                        selectedMenu: selectedSideMenu,
+                        selectedMenu: widget
+                            .selectedMenu, // Utiliza widget.selectedMenu en lugar de selectedSideMenu
                         press: () {
-                       
-                          setState(() {
-                            selectedSideMenu = menu;
-                          });
+                          updateSelectedMenu(menu);
                         },
-                        
                       ))
                   .toList(),
             ],
