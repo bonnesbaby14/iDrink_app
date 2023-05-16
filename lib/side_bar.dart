@@ -8,19 +8,22 @@ import 'menu.dart';
 class SideBar extends StatefulWidget {
   const SideBar({
     Key? key,
+    required this.name,
     required this.selectedMenu,
     required this.updateSelectedSideMenu,
   }) : super(key: key);
 
   final Menu selectedMenu;
   final void Function(Menu) updateSelectedSideMenu;
-
+  final String name;
   @override
   State<SideBar> createState() => _SideBarState();
 }
 
 class _SideBarState extends State<SideBar> {
   Menu selectedSideMenu = sidebarMenus.first;
+  
+
 
   void updateSelectedMenu(Menu menu) {
     widget.updateSelectedSideMenu(menu);
@@ -43,9 +46,9 @@ class _SideBarState extends State<SideBar> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const InfoCard(
-                name: "Abu Anwar",
-                bio: "YouTuber",
+               InfoCard(
+                name: widget.name,
+                bio: "TikToker",
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),

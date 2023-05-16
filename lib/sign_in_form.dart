@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:idrink_app/entry_point.dart';
 import 'package:rive/rive.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -21,6 +22,8 @@ class _SignInFormState extends State<SignInForm> {
   late SMITrigger error;
   late SMITrigger success;
   late SMITrigger reset;
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _userController = TextEditingController();
 
   late SMITrigger confetti;
 
@@ -42,50 +45,63 @@ class _SignInFormState extends State<SignInForm> {
     confetti = controller.findInput<bool>("Trigger explosion") as SMITrigger;
   }
 
-  void singIn(BuildContext context) {
+  void singIn(BuildContext context) async {
     // confetti.fire();
     setState(() {
       isShowConfetti = true;
       isShowLoading = true;
     });
-    Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        if (_formKey.currentState!.validate()) {
-          success.fire();
-          Future.delayed(
-            const Duration(seconds: 2),
-            () {
-              setState(() {
-                isShowLoading = false;
-              });
-              confetti.fire();
-              // Navigate & hide confetti
-              Future.delayed(const Duration(seconds: 1), () {
-                // Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const EntryPoint(),
-                  ),
-                );
-              });
-            },
-          );
-        } else {
-          error.fire();
-          Future.delayed(
-            const Duration(seconds: 2),
-            () {
-              setState(() {
-                isShowLoading = false;
-              });
-              reset.fire();
-            },
-          );
-        }
+
+    final response = await http.post(
+      Uri.parse(
+          'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/login'),
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: jsonEncode({
+        'email': _userController.text,
+        'password': _passwordController.text
+      }),
     );
+
+    if (response.statusCode == 200) {
+var responseData = json.decode(response.body);
+  var name = responseData['name'];
+
+      success.fire();
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          setState(() {
+            isShowLoading = false;
+          });
+          confetti.fire();
+          // Navigate & hide confetti
+          Future.delayed(const Duration(seconds: 1), () {
+            // Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EntryPoint(
+                  name: name,
+                ),
+              ),
+            );
+          });
+        },
+      );
+    } else if (response.statusCode == 401 || response.statusCode == 404) {
+      error.fire();
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          setState(() {
+            isShowLoading = false;
+          });
+          reset.fire();
+        },
+      );
+    }
   }
 
   @override
@@ -106,6 +122,7 @@ class _SignInFormState extends State<SignInForm> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 16),
                 child: TextFormField(
+                  controller: _userController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "";
@@ -129,6 +146,7 @@ class _SignInFormState extends State<SignInForm> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 16),
                 child: TextFormField(
+                  controller: _passwordController,
                   obscureText: true,
                   validator: (value) {
                     if (value!.isEmpty) {

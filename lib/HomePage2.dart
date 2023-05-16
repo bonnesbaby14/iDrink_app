@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HomePage2 extends StatefulWidget {
-  const HomePage2({Key? key}) : super(key: key);
+  const HomePage2({Key? key,  required this.name,}) : super(key: key);
+    final String name;
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState2 createState() => _HomePageState2();

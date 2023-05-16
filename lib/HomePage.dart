@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.name,}) : super(key: key);
+    final String name;
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 body: jsonEncode({
                                   'drink': 'greyhound',
-                                  'user': 'tu_usuario'
+                                  'user': widget.name
                                 }),
                               );
 
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 body: jsonEncode({
                                   'drink': 'tequila_sunrise',
-                                  'user': 'tu_usuario'
+                                  'user': widget.name
                                 }),
                               );
 
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 body: jsonEncode({
                                   'drink': 'desarmador',
-                                  'user': 'tu_usuario'
+                                  'user': widget.name
                                 }),
                               );
 
@@ -179,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 body: jsonEncode({
                                   'drink': 'cosmopolitan',
-                                  'user': 'tu_usuario'
+                                  'user': widget.name
                                 }),
                               );
 
