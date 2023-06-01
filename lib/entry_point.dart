@@ -5,7 +5,7 @@ import 'package:idrink_app/side_bar.dart';
 import 'package:rive/rive.dart';
 
 import 'HomePage.dart';
-import 'HomePage2.dart';
+import 'Graphics.dart';
 import 'constants.dart';
 import 'menu.dart';
 import 'menu_btn.dart';
@@ -163,12 +163,12 @@ class _EntryPointState extends State<EntryPoint>
       case "Home":
         return HomePage( name: name);
       case "Status":
-        return HomePage2( name: name);
+        return Graphics( name: name);
       case "Graphics":
         return HomePage( name: name);
       // Agrega más casos según tus necesidades
       default:
-        return HomePage2( name: name); // Página de respaldo en caso de no encontrar una coincidencia
+        return Graphics( name: name); // Página de respaldo en caso de no encontrar una coincidencia
     }
   }
 }
