@@ -1,26 +1,25 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class Status  extends StatefulWidget {
+class Status extends StatefulWidget {
   const Status({Key? key, required this.name}) : super(key: key);
   final String name;
 
   @override
-  // ignore: library_private_types_in_public_api
   _StatusState createState() => _StatusState();
 }
 
 class _StatusState extends State<Status> {
-  List<String> imageUrls = [];
+  Map<String, double> waterLevels = {};
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    fetchImages();
+    fetchWaterLevels();
   }
 
   @override
@@ -29,44 +28,24 @@ class _StatusState extends State<Status> {
     // Cancelar cualquier temporizador o animación activa aquí
   }
 
-  Future<void> fetchImages() async {
-    final List<String> urls = [
-      'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/graphics_orders', // URL de la primera imagen
-      'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/graphics_orders_users', // URL de la segunda imagen
-      'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/graphics_status' // URL de la tercera imagen
-    ];
-
-    for (String url in urls) {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        String imageUrl = data['image_base64'];
-        setState(() {
-          imageUrls.add(imageUrl);
-          isLoading = false;
-        });
-      } else {
-        print('Error en la solicitud HTTP');
-      }
-    }
-  }
-
-  Future<void> updateImages(int index) async {
-    final List<String> urls = [
-      'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/graphics_orders', // URL de la primera imagen
-      'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/graphics_orders_users', // URL de la segunda imagen
-      'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/graphics_status' // URL de la tercera imagen
-    ];
-
-    final response = await http.get(Uri.parse(urls[index]));
+  Future<void> fetchWaterLevels() async {
+    final response = await http.get(Uri.parse('https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/status'));
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      String imageUrl = data['image_base64'];
-      if (mounted) {
-        setState(() {
-          imageUrls[index] = imageUrl;
+      final Map<String, dynamic> data = jsonDecode(response.body)["data"];
+      data.remove("created_at");
+      data.remove("id");
+      setState(() {
+        waterLevels = {};
+        data.forEach((key, value) {
+          try {
+            double waterLevel = double.parse(value) / 1000.0; // Adaptar el valor al rango 0.0 - 1.0
+            waterLevels[key] = waterLevel;
+          } catch (e) {
+            print('Error al convertir el valor $value a double: $e');
+          }
         });
-      }
+        isLoading = false;
+      });
     } else {
       print('Error en la solicitud HTTP');
     }
@@ -88,9 +67,9 @@ class _StatusState extends State<Status> {
               Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(30))),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+                ),
                 padding: const EdgeInsets.all(20.0),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,40 +78,69 @@ class _StatusState extends State<Status> {
                       'Find Your',
                       style: TextStyle(color: Colors.black87, fontSize: 25),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5),
                     Text(
-                      'Graphics',
+                      'Status',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.black,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? Center(child: CircularProgressIndicator())
                   : CarouselSlider.builder(
-                      itemCount: imageUrls.length,
+                      itemCount: waterLevels.length,
                       itemBuilder: (BuildContext context, int index, int realIndex) {
-                        String imageUrl = imageUrls[index];
-                        Uint8List bytes = base64Decode(imageUrl.split(',')[1]);
-                        return Image.memory(
-                          bytes,
-                          fit: BoxFit.contain, // Cambiar a BoxFit.contain para ajustar la imagen
+                        String bottleName = waterLevels.keys.elementAt(index);
+                        double waterLevel = waterLevels[bottleName]!;
+                        Color backgroundColor = index % 2 == 0 ? Colors.blue : Colors.green;
+                        Color textColor = Colors.white;
+
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          color: backgroundColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircularPercentIndicator(
+                                  radius: 100.0,
+                                  lineWidth: 15.0,
+                                  percent: waterLevel,
+                                  center: Text(
+                                    (waterLevel * 100).toStringAsFixed(0) + "%",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor,
+                                    ),
+                                  ),
+                                  progressColor: textColor,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  'Nivel de $bottleName',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: textColor,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                
+                              ],
+                            ),
+                          ),
                         );
                       },
                       options: CarouselOptions(
@@ -141,7 +149,7 @@ class _StatusState extends State<Status> {
                         autoPlay: true,
                         autoPlayInterval: const Duration(seconds: 3),
                         onPageChanged: (index, reason) {
-                          updateImages(index);
+                          fetchWaterLevels();
                         },
                       ),
                     ),
