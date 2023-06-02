@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart';
 
-class Graphics extends StatefulWidget {
-  const Graphics({Key? key, required this.name}) : super(key: key);
+class Status  extends StatefulWidget {
+  const Status({Key? key, required this.name}) : super(key: key);
   final String name;
 
   @override
-  _GraphicsState createState() => _GraphicsState();
+  // ignore: library_private_types_in_public_api
+  _StatusState createState() => _StatusState();
 }
 
-class _GraphicsState extends State<Graphics> {
+class _StatusState extends State<Status> {
   List<String> imageUrls = [];
   bool isLoading = true;
 
@@ -154,6 +155,6 @@ class _GraphicsState extends State<Graphics> {
 
 void main() {
   runApp(MaterialApp(
-    home: const Graphics(name: 'Graphics'),
+    home: const Status(name: 'Graphics'),
   ));
 }

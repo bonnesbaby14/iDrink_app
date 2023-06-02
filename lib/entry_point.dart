@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:idrink_app/side_bar.dart';
 import 'package:rive/rive.dart';
 
+import 'Exportable.dart';
 import 'HomePage.dart';
 import 'Graphics.dart';
+import 'Status.dart';
 import 'constants.dart';
 import 'menu.dart';
 import 'menu_btn.dart';
@@ -163,12 +165,12 @@ class _EntryPointState extends State<EntryPoint>
       case "Home":
         return HomePage( name: name);
       case "Status":
-        return Graphics( name: name);
+        return Status( name: name);
       case "Graphics":
-        return HomePage( name: name);
+        return Graphics( name: name);
       // Agrega más casos según tus necesidades
       default:
-        return Graphics( name: name); // Página de respaldo en caso de no encontrar una coincidencia
+        return Exportable( name: name); // Página de respaldo en caso de no encontrar una coincidencia
     }
   }
 }
