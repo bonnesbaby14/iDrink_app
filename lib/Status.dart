@@ -29,7 +29,8 @@ class _StatusState extends State<Status> {
   }
 
   Future<void> fetchWaterLevels() async {
-    final response = await http.get(Uri.parse('https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/status'));
+    final response = await http.get(Uri.parse(
+        'https://idrink-api-prod-idrink-api-fqemyp.mo2.mogenius.io/status'));
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body)["data"];
       data.remove("created_at");
@@ -38,7 +39,8 @@ class _StatusState extends State<Status> {
         waterLevels = {};
         data.forEach((key, value) {
           try {
-            double waterLevel = double.parse(value) / 1000.0; // Adaptar el valor al rango 0.0 - 1.0
+            double waterLevel =
+                double.parse(value) / 25.0; // Adaptar el valor al rango 0 - 1
             waterLevels[key] = waterLevel;
           } catch (e) {
             print('Error al convertir el valor $value a double: $e');
@@ -68,7 +70,8 @@ class _StatusState extends State<Status> {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(30)),
                 ),
                 padding: const EdgeInsets.all(20.0),
                 child: const Column(
@@ -97,10 +100,12 @@ class _StatusState extends State<Status> {
                   ? Center(child: CircularProgressIndicator())
                   : CarouselSlider.builder(
                       itemCount: waterLevels.length,
-                      itemBuilder: (BuildContext context, int index, int realIndex) {
+                      itemBuilder:
+                          (BuildContext context, int index, int realIndex) {
                         String bottleName = waterLevels.keys.elementAt(index);
                         double waterLevel = waterLevels[bottleName]!;
-                        Color backgroundColor = index % 2 == 0 ? Colors.blue : Colors.green;
+                        Color backgroundColor =
+                            index % 2 == 0 ? Colors.blue : Colors.green;
                         Color textColor = Colors.white;
 
                         return Card(
@@ -118,9 +123,9 @@ class _StatusState extends State<Status> {
                                   lineWidth: 15.0,
                                   percent: waterLevel,
                                   center: Text(
-                                    (waterLevel * 100).toStringAsFixed(0) + "%",
+                                    (waterLevel * 100).toStringAsFixed(0) + "/100%",
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 10,
                                       fontWeight: FontWeight.bold,
                                       color: textColor,
                                     ),
@@ -137,7 +142,6 @@ class _StatusState extends State<Status> {
                                   ),
                                 ),
                                 SizedBox(height: 5),
-                                
                               ],
                             ),
                           ),
